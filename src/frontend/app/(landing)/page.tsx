@@ -1,9 +1,16 @@
 import React from 'react'
 import Image from 'next/image';
+import Auth from './auth';
 
 type Props = {}
 
-export default function Landing({}: Props) {
+async function check_api() {
+    const res = await fetch('http://127.0.0.1:5000/');
+    const data = await res.json();
+    return data;
+}
+
+export default async function Landing({}: Props) {
   return (
       <>
           <div className="p-4">
@@ -26,6 +33,9 @@ export default function Landing({}: Props) {
                                   Get Started
                               </button>
                           </div>
+                          {
+                              JSON.stringify(await check_api())
+                          }
                       </div>
                   </div>
                   <div className="w-2/5">

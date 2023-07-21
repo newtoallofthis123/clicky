@@ -30,17 +30,6 @@ def otp_gen_engine():
     return otp
 
 
-"""
-Censor a given string
-
-Parameters:
-    content (str): The content to be censored
-
-Returns:
-    str: The censored string
-"""
-
-
 def censor(content):
     import re
     censor_node = re.compile(
@@ -76,18 +65,6 @@ def decrypt(content, key):
     decrypted_content = (fernet.decrypt(content.encode())).decode()
     return decrypted_content
 
-
-"""
-Adds a patient to the database.
-
-Parameters:
-    patient (dict): A dictionary containing the patient's information.
-
-Returns:
-    patient (dict): The patient's information.
-"""
-
-
 def add_to_db(patient):
     key = Fernet.generate_key().decode()
     patient_info = Bin(
@@ -118,17 +95,6 @@ def doc_all():
     return debug_content
 
 
-"""
-Retrieve a patient from the database using a hash.
-
-Parameters:
-hash (str): The hash of the patient to be retrieved.
-
-Returns:
-patient (object): The patient object if found, oth  erwise "No".
-"""
-
-
 def get_db(hash):
     patient = Bin.query.filter_by(hash=hash).first()
     if patient == None:
@@ -137,8 +103,8 @@ def get_db(hash):
         return patient
 
 
-def get_doc(gov_id):
-    doctor = Doctors.query.filter_by(gov_id=gov_id).first()
+def get_doc(hash):
+    doctor = Doctors.query.filter_by(hash=hash).first()
     if doctor == None:
         return "No"
     else:
@@ -163,11 +129,6 @@ def ran_quote():
         return quote_list
     except:
         quote_list = ["Never give up!", "EveryOne in The World!"]
-
-
-def ran_joke():
-    joke = pyjokes.get_joke(category="neutral")
-    return joke
 
 
 def ran_fact():

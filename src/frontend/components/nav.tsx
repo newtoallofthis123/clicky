@@ -1,10 +1,12 @@
 import React from 'react'
 import Image from 'next/image';
 import Link from 'next/link';
+import Auth from '@/app/(landing)/auth';
 
 type Props = {}
 
-export default function Nav({}: Props) {
+export default async function Nav({ }: Props) {
+    const auth = await Auth();
   return (
       <>
           <nav>
@@ -19,7 +21,7 @@ export default function Nav({}: Props) {
                           width={162}
                           height={162}
                           className="w-10 h-10 md:w-12 md:h-12"
-                          src="icon.svg"
+                          src="/logo.svg"
                           alt="NoobScience Logo"
                       />
                       <h1 className="text-3xl font-bold p-1 ml-2">
@@ -60,8 +62,29 @@ export default function Nav({}: Props) {
                       </div>
                   </div>
                   <div>
-                      <button className="text-gray-900 font-bold py-2 px-4 rounded">
-                          🏥 Hospital
+                      <button className="text-white text-xl bg-black border-2 border-black py-2 px-4 rounded">
+                          {
+                              auth !== null && (
+                                      <p> {
+                                          auth.gender == "Male" ? (
+                                        "🧑‍⚕️"
+                                          ) : (
+                                                  "👩‍⚕️"
+                                        )
+                                      } {' '}
+                                          {
+                                              auth.name
+                                          }
+                                      </p>
+                              )
+                          }
+                          {
+                              auth === null && (
+                                  <Link href="auth">
+                                        Login
+                                  </Link>
+                              )
+                          }
                       </button>
                   </div>
               </div>
